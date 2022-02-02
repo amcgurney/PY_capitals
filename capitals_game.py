@@ -151,3 +151,41 @@ states = [
     "name": "Wyoming",
     "capital": "Cheyenne"
 }]
+
+import random
+def start_game():
+
+    print ("Let's Play Capitals")
+    play_game = True
+    random.shuffle(states)
+
+    for state in states:
+        state["correct"] = 0
+        state["incorrect"] = 0
+
+    total_correct = 0
+    total_questions = 0
+
+    while play_game:
+        for state in states:
+            capital_guess = input(f"enter the capital of {state['name']}:")
+            if capital_guess == state["capital"]:
+                state["correct"] += 1
+                total_correct += 1
+                total_questions += 1
+                print(f"you have {total_correct} correct")
+                print(f"you guessed correct {total_correct} out of {total_questions}")
+            else:
+                state["incorrect"] += 1
+                total_questions += 1
+                print(f"incorrect, you have {total_correct} correct")
+                print(f"you guessed correct {total_correct} out of {total_questions}")
+
+        if total_questions == 50:
+            print(f"game over, you have {total_correct} guesses")
+            print(f'play again? "Y" or "N"')
+            play_again = input()
+            if play_again == "Y":
+                return start_game
+
+start_game()
